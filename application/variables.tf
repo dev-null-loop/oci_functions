@@ -60,14 +60,25 @@ variable "image_policy_config" {
   default = null
 }
 
+variable "logging" {
+  description = "(Optional) (Updatable) Application Function logs configuration"
+  type = object({
+    line_format = optional(string)
+  })
+  default = null
+}
+
+variable "security_attributes" {
+  description = "(Optional) (Updatable) Security attributes for this resource."
+  type        = map(string)
+  default     = null
+}
+
 variable "trace_config" {
   description = "(Optional) (Updatable) Define the tracing configuration for an application."
   type = object({
-    domain_id  = string
-    is_enabled = bool
+    domain_id  = optional(string)
+    is_enabled = optional(bool)
   })
-  default = {
-    domain_id  = null
-    is_enabled = false
-  }
+  default = null
 }

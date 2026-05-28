@@ -11,20 +11,31 @@ resource "oci_functions_application" "this" {
 
   dynamic "image_policy_config" {
     for_each = var.image_policy_config[*]
+    iterator = ipc
     content {
-      is_policy_enabled = var.image_policy_config.is_policy_enabled
+      is_policy_enabled = ipc.value.is_policy_enabled
 
       key_details {
-        kms_key_id = var.image_policy_config.key_details.kms_key_id
+        kms_key_id = ipc.value.key_details.kms_key_id
       }
     }
   }
 
+  dynamic "logging" {
+    for_each = var.logging[*]
+    iterator = lg
+    content {
+      line_format = lg.value.line_format
+    }
+  }
+
+  security_attributes = var.security_attributes
   dynamic "trace_config" {
     for_each = var.trace_config[*]
+    iterator = tc
     content {
-      domain_id  = var.trace_config.domain_id
-      is_enabled = var.trace_config.is_enabled
+      domain_id  = tc.value.domain_id
+      is_enabled = tc.value.is_enabled
     }
   }
 }
