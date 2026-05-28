@@ -69,10 +69,7 @@ variable "source_details" {
 variable "trace_config" {
   description = "(Optional) (Updatable) Define the tracing configuration for a function. "
   type = object({
-    is_enabled = bool
+    is_enabled = optional(bool)
   })
-
-  default = {
-    is_enabled = false
-  }
+  default = null
 }
