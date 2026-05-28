@@ -8,7 +8,6 @@ resource "oci_functions_function" "this" {
   image              = var.image
   image_digest       = var.image_digest
   timeout_in_seconds = var.timeout_in_seconds
-
   dynamic "provisioned_concurrency_config" {
     for_each = var.provisioned_concurrency_config[*]
     iterator = pcc
@@ -17,7 +16,6 @@ resource "oci_functions_function" "this" {
       count    = pcc.value.count
     }
   }
-
   dynamic "source_details" {
     for_each = var.source_details[*]
     iterator = sd
@@ -26,7 +24,6 @@ resource "oci_functions_function" "this" {
       source_type    = sd.value.source_type
     }
   }
-
   dynamic "trace_config" {
     for_each = var.trace_config[*]
     iterator = tc
